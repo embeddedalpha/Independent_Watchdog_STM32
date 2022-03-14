@@ -14,16 +14,19 @@
 
 int main(void)
 {
+	int baudrate = 9600;
+	int IWDG_Timeout = 40; //40ms max timeout
+
 	MCU_Clock_Setup();
 	Delay_Config();
-	Console_Init(USART1, 9600);
+	Console_Init(USART1, baudrate);
 	GPIO_Pin_Setup(GPIOA, 0, GENERAL_PURPOSE_OUTPUT_PUSHPULL, NONE);
 
 	int val;
     /* Loop forever */
 
 
-	val = IWDG_Init(40); //40ms
+	val = IWDG_Init(IWDG_Timeout); //40ms
 	if(val == -1)
 	{
 #if IWD_DEBUG
