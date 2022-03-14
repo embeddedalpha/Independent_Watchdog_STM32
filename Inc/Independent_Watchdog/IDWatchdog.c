@@ -37,7 +37,9 @@ int IWDG_Init(int32_t timeout)
 	if (timeout > 4095)
 	{
 #if IWD_DEBUG
-		printConsole(USART1, "Error: Importing timeout value out of bounds \r\n");
+		printConsole(USART1, "Error: Importing timeout value out of bounds.\r\n");
+		printConsole(USART1, "File: IDWatchdog.c\r\n");
+		printConsole(USART1, "Line: 37\r\n");
 		printConsole(USART1, "Error: timeout = %d\r\n",timeout);
 #endif
 		return -1;
@@ -55,6 +57,11 @@ int IWDG_Init(int32_t timeout)
 	// Check if timer has overflowed. Return back to main program.
 	if(__timer > __timeout)
 	{
+#if IWD_DEBUG
+		printConsole(USART1, "Error: Timeout error \r\n");
+		printConsole(USART1, "File: IDWatchdog.c\r\n");
+		printConsole(USART1, "Line: 52\r\n");
+#endif
 		return -1;
 	}
 
@@ -71,6 +78,11 @@ int IWDG_Init(int32_t timeout)
 	// Check if timer has overflowed. Return back to main program.
 	if(__timer > __timeout)
 	{
+#if IWD_DEBUG
+		printConsole(USART1, "Error: Timeout error \r\n");
+		printConsole(USART1, "File: IDWatchdog.c\r\n");
+		printConsole(USART1, "Line: 73\r\n");
+#endif
 		return -1;
 	}
 
