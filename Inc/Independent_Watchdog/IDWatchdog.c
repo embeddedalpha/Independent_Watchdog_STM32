@@ -24,17 +24,20 @@
 
 int IWDG_Init(int32_t timeout)
 {
-	// Variable declaration.
-	int __timer;
-	int __timeout;
+	//Constants:
 
-	//Variable initialization.
-	__timer = 0;
-	__timeout = 1000;
+	const int max_timeout = 4095;
+	const int IWDG_KR_Key_Value = 0x5555;
+
+
+	// Variable declaration.
+	int __timer 	=	0;
+	int	__timeout	=	1000;
+
 
 	//Check scope of importing parameter.
 
-	if (timeout > 4095)
+	if (timeout > max_timeout)
 	{
 #if IWD_DEBUG
 		printConsole(USART1, "Error: Importing timeout value out of bounds.\r\n");
@@ -46,7 +49,7 @@ int IWDG_Init(int32_t timeout)
 	}
 
 	// 0x5555 to KR value allows configuration of Independent Watchdog Timer registers.
-	IWDG -> KR = 0x5555;
+	IWDG -> KR = IWDG_KR_Key_Value;
 
 	//Wait till PVU bit is low or till timer overflows.
 	while( ((IWDG -> SR & IWDG_SR_PVU) == IWDG_SR_PVU) && (__timer < __timeout))
@@ -106,7 +109,8 @@ int IWDG_Init(int32_t timeout)
  */
 void IWDG_Prevent_Reset(void)
 {
-	IWDG -> KR = 0xAAAA;
+	const int IWDG_KR_Reset_Value = 0xAAAA;
+	IWDG -> KR = IWDG_KR_Reset_Value;
 }
 
 
@@ -120,6 +124,7 @@ void IWDG_Prevent_Reset(void)
  */
 void IWDG_Start(void)
 {
-	IWDG -> KR = 0xCCCC;
+	const int IWDG_KR_Start_Value = 0xCCCC;
+	IWDG -> KR = IWDG_KR_Start_Value;
 }
 
