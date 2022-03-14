@@ -12,22 +12,33 @@
 
 
 
-
-
 int main(void)
 {
 	MCU_Clock_Setup();
 	Delay_Config();
 	Console_Init(USART1, 9600);
+	GPIO_Pin_Setup(GPIOA, 0, GENERAL_PURPOSE_OUTPUT_PUSHPULL, NONE);
 
 	int val;
     /* Loop forever */
 
 
-	val = IWDG_Init(10000);
+	val = IWDG_Init(40); //40ms
 	if(val == -1)
 	{
-		printConsole(USART1, "Error: IWDG Init failed. Line number : 104 \r\n");
+#if IWD_DEBUG
+		printConsole(USART1, "Error: IWDG Init failed. \r\n");
+		printConsole(USART1, "File: main.c\r\n");
+		printConsole(USART1, "Line: 25\r\n");
+#endif
 	}
-	for(;;);
+	IWDG_Start();
+
+
+	for(;;)
+	{
+		GPIOA -> BSRR |= GPIO_BSRR_BS0;
+		IWDG_Prevent_Reset();
+
+	}
 }
