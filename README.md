@@ -12,4 +12,4 @@ void IWDG_Start(void);
 ```
 
 
-### Note: Users are recommended to read through the library. Whenever a command is implemented, IWDG_Prevent_Reset() is to be called to avoid system reset.
+Note: Users are recommended to read through the library. Whenever a command is implemented, IWDG_Prevent_Reset() is to be called to avoid system reset.
