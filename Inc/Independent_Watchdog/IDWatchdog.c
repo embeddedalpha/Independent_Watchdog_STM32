@@ -1,10 +1,10 @@
-/*
- * IDWatchdog.c
- *
- *  Created on: 17-Jan-2022
- *      Author: Kunal
+/**
+ ******************************************************************************
+ * @file           : IDWatchdog.c
+ * @author         : Kunal Salvi
+ * @brief          : IDWatchdog Driver H File
+ ******************************************************************************
  */
-
 
 #include "IDWatchdog.h"
 
